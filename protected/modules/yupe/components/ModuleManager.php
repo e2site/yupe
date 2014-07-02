@@ -269,6 +269,14 @@ class ModuleManager extends \CApplicationComponent
             if ($imports === false || ($modules = @Yii::app()->cache->get('modulesDisabled')) == false) {
                 $modConfigs = Yii::getPathOfAlias('application.config.modules');
                 $modPath = Yii::getPathOfAlias('application.modules');
+                /**
+                * Тут косяк, особо разобратся не успел, но суть его в следующем, при переходе на продакшн
+                * значение в $cacheFile - становится "cached_settings", а файл называет cached_settings_web в
+                * итоге при заходе в админку получаю Fatal error: Unsupported operand types in U:\OpenServer\domains\localhost\protected\modules\yupe\components\ModuleManager.php on line 243
+                * Пока решения не искал, сделал грабли в виде 
+                * $cacheFile = Yii::app()->configManager->cacheFileName.'_'.YII_APP_TYPE;
+                * но это грабли..
+                */
                 $cacheFile = Yii::app()->configManager->cacheFileName;
 
                 foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
