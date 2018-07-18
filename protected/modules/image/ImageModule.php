@@ -50,7 +50,7 @@ class ImageModule extends WebModule
     /**
      * @var
      */
-    public $types;
+    public $types=[];
     /**
      * @var string
      */
